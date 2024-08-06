@@ -1,0 +1,3 @@
+float64 temperature
+float64 ph
+float64 conductivity

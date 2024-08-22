@@ -56,7 +56,7 @@ class WaterSamplerNode(Node):
         )
         self._run_spin = False
         self._run_service(self.close_servo_service_client, Trigger.Request())
-        self.get_logger().info(f"Water sampler is ready")
+        self.get_logger().info("Water sampler is ready")
 
     def run_water_sampler(self, request, response):
         self.get_logger().info(f"Run water sampler with mode: {request.mode}")

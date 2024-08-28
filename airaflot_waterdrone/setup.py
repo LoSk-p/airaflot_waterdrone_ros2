@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob
 
 package_name = 'airaflot_waterdrone'
 
@@ -10,6 +12,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]*'))),
     ],
     install_requires=['setuptools', 'airaflot_msgs', 'RPi.GPIO', 'rpimotorlib'],
     zip_safe=True,
@@ -24,7 +27,8 @@ setup(
                 'water_sampler_servo = airaflot_waterdrone.peripheral_modules.water_sampler.servo:main',
                 'water_sampler_motor = airaflot_waterdrone.peripheral_modules.water_sampler.motor:main',
                 'water_sampler = airaflot_waterdrone.peripheral_modules.water_sampler.water_sampler:main',
-                'ecostab_sensors_publisher = airaflot_waterdrone.peripheral_modules.ecostab_sensors.publisher:main'
+                'ecostab_sensors_publisher = airaflot_waterdrone.peripheral_modules.ecostab_sensors.publisher:main', 
+                'echo_sounder_publisher = airaflot_waterdrone.peripheral_modules.echo_sounder.echo_sounder:main'
         ],
 },
 )

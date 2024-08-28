@@ -2,7 +2,7 @@ import struct
 import pymodbus.client as ModbusClient
 
 from .sensor import Sensor
-from ....config import ECOSTAB_SENSORS_PORT
+from ....config_wiring import ECOSTAB_SENSORS_PORT
 
 from airaflot_msgs.msg import EcostabSensors
 

@@ -6,13 +6,13 @@ import RPi.GPIO as GPIO
 
 from std_srvs.srv import Trigger
 
-from ...config import WATER_SAMPLER_SERVO_PIN
+from ...config_wiring import WATER_SAMPLER_SERVO_PIN
 from ...const_names import CLOSE_SERVO_SERVICE_NAME, OPEN_AND_STOP_SERVO_SERVICE_NAME
 
 NODE_NAME = "water_sampler_servo"
 
 CLOSE_POSITION = 10
-OPEN_POSITION = 8
+OPEN_POSITION = 6
 OPEN_SERVO_DELAY = 0.5
 
 

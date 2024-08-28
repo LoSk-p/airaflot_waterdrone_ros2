@@ -3,10 +3,6 @@ ROS2 packages for Airaflot Water Drone
 
 ## Requirements
 * ROS2
-* ROS2 packages
-```bash
-sudo apt install ros-humble-nmea-msgs
-```
 
 ## install
 Clone packages to your ROS2 workspase:

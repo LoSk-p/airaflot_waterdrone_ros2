@@ -26,6 +26,7 @@ endif()
 
 set(msg_files
   "msg/EcostabSensors.msg"
+  "msg/NMEADBT.msg"
 )
 set(srv_files
   "srv/WaterSampler.srv"

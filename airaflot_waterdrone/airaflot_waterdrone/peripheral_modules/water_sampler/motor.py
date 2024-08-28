@@ -6,7 +6,7 @@ from RpiMotorLib import RpiMotorLib
 
 from airaflot_msgs.srv import WaterSamplerMotor
 
-from ...config import (
+from ...config_wiring import (
     WATER_SAMPLER_STEP_PIN,
     WATER_SAMPLER_DIRECTION_PIN,
     WATER_SAMPLER_MODE_PINS,
@@ -21,13 +21,13 @@ GET_SAMPLE_DELAY = 3 * 60 # sec
 class WaterSamplerMotorNode(Node):
     def __init__(self):
         super().__init__(NODE_NAME)
-        # self._setup_gpio()
-        # self.motor = RpiMotorLib.A4988Nema(
-        #     WATER_SAMPLER_DIRECTION_PIN,
-        #     WATER_SAMPLER_STEP_PIN,
-        #     WATER_SAMPLER_MODE_PINS,
-        #     motor_type=WATER_SUMPLER_MOTOR_TYPE,
-        # )
+        self._setup_gpio()
+        self.motor = RpiMotorLib.A4988Nema(
+            WATER_SAMPLER_DIRECTION_PIN,
+            WATER_SAMPLER_STEP_PIN,
+            WATER_SAMPLER_MODE_PINS,
+            motor_type=WATER_SUMPLER_MOTOR_TYPE,
+        )
         self.service = self.create_service(
             WaterSamplerMotor, DOWN_WATER_SAMPLER_MOTOR_SERVICE_NAME, self.down_motor
         )
@@ -69,7 +69,7 @@ class WaterSamplerMotorNode(Node):
 
     def _run_stepper(self, revolutions: float, direction_down: bool) -> None:
         self.get_logger().info(f"Run motor to {revolutions} revolutions {'down' if direction_down else 'up'}")
-        # self.motor.motor_go(clockwise=direction_down, steps=int(revolutions*8000), stepdelay=.00012)
+        self.motor.motor_go(clockwise=direction_down, steps=int(revolutions*8000), stepdelay=.00012)
         self.get_logger().info("Motor finished")
 
     def _get_revolutions(self, distance_cm: int) -> int:

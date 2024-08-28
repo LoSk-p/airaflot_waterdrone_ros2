@@ -9,3 +9,7 @@ WATER_SAMPLER_SERVO_PIN = 12
 ### Ecostab Sensors ###
 
 ECOSTAB_SENSORS_PORT = "/dev/ttyUSB0"
+
+### Echo Sounder ###
+
+ECHOSOUNDER_PORT = "/dev/ttyUSB0"

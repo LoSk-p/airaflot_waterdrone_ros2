@@ -29,15 +29,17 @@ class RCCommandsController(Node):
         self.current_channel_value = 1000
 
     def listener_callback(self, msg: RCIn):
-        self.get_logger().info(f"Channels: {msg.channels}, channel 9: {msg.channels[WATER_SAMPLER_CHANNEL_INDEX]}")
-        if abs(msg.channels[WATER_SAMPLER_CHANNEL_INDEX] - self.current_channel_value) > CHANNELS_DIFF:
-            task_mode = self._get_task_mode(msg.channels[WATER_SAMPLER_CHANNEL_INDEX])
-            if task_mode is not None:
-                self.get_logger().info(f"Got command to run Water Sampler service with mode {task_mode}")
-                request = WaterSampler()
-                request.mode = task_mode
-                self.water_sampler_service_client.call_async(request)
-        self.current_channel_value = msg.channels[WATER_SAMPLER_CHANNEL_INDEX]
+        self.get_logger().debug(f"Channels: {msg.channels}")
+        if len(msg.channels) > 0:
+            self.get_logger().debug(f"Channel 9: {msg.channels[WATER_SAMPLER_CHANNEL_INDEX]}")
+            if abs(msg.channels[WATER_SAMPLER_CHANNEL_INDEX] - self.current_channel_value) > CHANNELS_DIFF:
+                task_mode = self._get_task_mode(msg.channels[WATER_SAMPLER_CHANNEL_INDEX])
+                if task_mode is not None:
+                    self.get_logger().info(f"Got command to run Water Sampler service with mode {task_mode}")
+                    request = WaterSampler.Request()
+                    request.mode = task_mode
+                    self.water_sampler_service_client.call_async(request)
+            self.current_channel_value = msg.channels[WATER_SAMPLER_CHANNEL_INDEX]
 
     def _get_task_mode(self, channel_value: int) -> tp.Optional[int]:
         if abs(channel_value - TASK_1_CHANNEL) < 10:

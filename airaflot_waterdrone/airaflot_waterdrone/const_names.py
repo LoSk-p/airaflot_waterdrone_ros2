@@ -16,3 +16,7 @@ ECOSTAB_SENSORS_TOPIC_NAME = "/airaflot/ecostab_sensors/data"
 ECHOSOUNDER_START_SERVICE_NAME = "/airaflot/echo_sounder/start"
 ECHOSOUNDER_STOP_SERVICE_NAME = "/airaflot/echo_sounder/stop"
 ECHOSOUNDER_DATA_TOPIC = "/airaflot/echo_sounder/data"
+
+### Mavros Utils ###
+SET_LOITER_MODE_SERVICE_NAME = "/airaflot/mavros_helpers/set_loiter_mode"
+SET_PREVIOUS_MODE_SERVICE_NAME = "/airaflot/mavros_helpers/set_previous_mode"

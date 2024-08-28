@@ -7,7 +7,7 @@ from mavros_msgs.msg import RCIn
 from airaflot_msgs.srv import WaterSampler
 
 from .config_channels import WATER_SAMPLER_CHANNEL_NUMBER, TASK_1_CHANNEL, TASK_2_CHANNEL, TASK_3_CHANNEL, TASK_4_CHANNEL, CHANNELS_DIFF
-from .const_names import RUN_WATER_SAMPLER_SERVICE_NAME
+from ...const_names import RUN_WATER_SAMPLER_SERVICE_NAME
 
 NODE_NAME = "rc_command_controller"
 RC_IN_TOPIC_NAME = "/mavros/rc/in"

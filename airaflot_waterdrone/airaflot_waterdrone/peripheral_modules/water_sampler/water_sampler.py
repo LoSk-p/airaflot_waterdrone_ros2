@@ -16,6 +16,8 @@ from ...const_names import (
     OPEN_AND_STOP_SERVO_SERVICE_NAME,
     DOWN_WATER_SAMPLER_MOTOR_SERVICE_NAME,
     UP_WATER_SAMPLER_MOTOR_SERVICE_NAME,
+    SET_LOITER_MODE_SERVICE_NAME,
+    SET_PREVIOUS_MODE_SERVICE_NAME,
 )
 
 NODE_NAME = "water_sampler"
@@ -28,6 +30,9 @@ class WaterSamplerNode(Node):
         super().__init__(NODE_NAME)
         self.service_done_event = Event()
         self.callback_group = ReentrantCallbackGroup()
+
+        ### Service Clients ###
+
         self.close_servo_service_client = self.create_client(
             Trigger, CLOSE_SERVO_SERVICE_NAME
         )
@@ -40,27 +45,44 @@ class WaterSamplerNode(Node):
         self.up_motor_service_client = self.create_client(
             WaterSamplerMotor, UP_WATER_SAMPLER_MOTOR_SERVICE_NAME
         )
+        self.set_loiter_mode_client = self.create_client(
+            Trigger, SET_LOITER_MODE_SERVICE_NAME
+        )
+        self.set_previous_mode_client = self.create_client(
+            Trigger, SET_PREVIOUS_MODE_SERVICE_NAME
+        )
         while not self.close_servo_service_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info("Wait for close servo service")
+            self.get_logger().info(f"Wait for {CLOSE_SERVO_SERVICE_NAME} service")
         while not self.open_servo_service_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info("Wait for open servo service")
+            self.get_logger().info(f"Wait for {OPEN_AND_STOP_SERVO_SERVICE_NAME} service")
         while not self.down_motor_service_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info("Wait for down motor service")
+            self.get_logger().info(f"Wait for {DOWN_WATER_SAMPLER_MOTOR_SERVICE_NAME} service")
         while not self.up_motor_service_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info("Wait for up motor service")
+            self.get_logger().info(f"Wait for {UP_WATER_SAMPLER_MOTOR_SERVICE_NAME} service")
+        while not self.set_loiter_mode_client.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info(f"Wait for {SET_LOITER_MODE_SERVICE_NAME} service")
+        while not self.set_previous_mode_client.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info(f"Wait for {SET_PREVIOUS_MODE_SERVICE_NAME} service")
+
+        ### Service Servers ###
+
         self.service = self.create_service(
             WaterSampler,
             RUN_WATER_SAMPLER_SERVICE_NAME,
             self.run_water_sampler,
             callback_group=self.callback_group,
         )
-        self._run_spin = False
+
+        ### Other Setup ###
+
         self._run_service(self.close_servo_service_client, Trigger.Request())
         self.get_logger().info("Water sampler is ready")
 
     def run_water_sampler(self, request, response):
         self.get_logger().info(f"Run water sampler with mode: {request.mode}")
         try:
+            self.get_logger().info("Set LOITER mode")
+            self._run_service_from_callback(self.set_loiter_mode_client, Trigger.Request())
             distance = self._get_distance(request.mode)
             motor_request = self._create_motor_service_request(distance)
             self.get_logger().info("Down motor service request")
@@ -77,6 +99,8 @@ class WaterSamplerNode(Node):
             self.get_logger().error(f"Run water sample service faild with error {e}")
             response.success = False
         finally:
+            self.get_logger().info("Set previos mode")
+            self._run_service_from_callback(self.set_previous_mode_client, Trigger.Request())
             return response
 
     def _get_distance(self, mode: int) -> int:

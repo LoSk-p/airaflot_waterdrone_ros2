@@ -29,7 +29,8 @@ setup(
                 'water_sampler = airaflot_waterdrone.peripheral_modules.water_sampler.water_sampler:main',
                 'ecostab_sensors_publisher = airaflot_waterdrone.peripheral_modules.ecostab_sensors.publisher:main', 
                 'echo_sounder_publisher = airaflot_waterdrone.peripheral_modules.echo_sounder.echo_sounder:main',
-                'mode_controller_helper = airaflot_waterdrone.mavros_helpers.mode_controller:main'
+                'mode_controller_helper = airaflot_waterdrone.mavros_helpers.mode_controller:main',
+                'gps_external = airaflot_waterdrone.peripheral_modules.gps_external.gps_external:main'
         ],
 },
 )

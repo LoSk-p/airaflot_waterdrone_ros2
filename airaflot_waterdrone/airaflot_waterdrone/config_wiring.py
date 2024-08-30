@@ -13,3 +13,7 @@ ECOSTAB_SENSORS_PORT = "/dev/ttyUSB0"
 ### Echo Sounder ###
 
 ECHOSOUNDER_PORT = "/dev/ttyUSB0"
+
+### GPS External ###
+
+GPS_EXTERNAL_PORT = "/dev/ttyUSB1"

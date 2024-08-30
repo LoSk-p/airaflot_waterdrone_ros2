@@ -20,3 +20,6 @@ ECHOSOUNDER_DATA_TOPIC = "/airaflot/echo_sounder/data"
 ### Mavros Utils ###
 SET_LOITER_MODE_SERVICE_NAME = "/airaflot/mavros_helpers/set_loiter_mode"
 SET_PREVIOUS_MODE_SERVICE_NAME = "/airaflot/mavros_helpers/set_previous_mode"
+
+### GPS External ###
+GPS_EXTERNAL_DATA_TOPIC_NAME = "/airaflot/gps_external/data"

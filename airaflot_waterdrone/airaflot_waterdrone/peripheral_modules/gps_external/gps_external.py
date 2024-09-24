@@ -8,7 +8,7 @@ from rclpy.executors import ExternalShutdownException
 
 from airaflot_msgs.msg import NMEAGPGGA
 
-from ...config_wiring import GPS_EXTERNAL_PORT
+from ..config_wiring import GPS_EXTERNAL_PORT
 from ...const_names import GPS_EXTERNAL_DATA_TOPIC_NAME
 
 NODE_NAME = "gps_external"

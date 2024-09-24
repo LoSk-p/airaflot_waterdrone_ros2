@@ -1,0 +1,19 @@
+### Water Sampler ###
+
+WATER_SAMPLER_DIRECTION_PIN = 20
+WATER_SAMPLER_STEP_PIN = 21
+WATER_SAMPLER_MODE_PINS = (-1, -1, -1)
+WATER_SUMPLER_MOTOR_TYPE = "DRV8825"
+WATER_SAMPLER_SERVO_PIN = 12
+
+### Ecostab Sensors ###
+
+ECOSTAB_SENSORS_PORT = "/dev/ttyUSB0"
+
+### Echo Sounder ###
+
+ECHOSOUNDER_PORT = "/dev/ttyUSB0"
+
+### GPS External ###
+
+GPS_EXTERNAL_PORT = "/dev/ttyUSB1"

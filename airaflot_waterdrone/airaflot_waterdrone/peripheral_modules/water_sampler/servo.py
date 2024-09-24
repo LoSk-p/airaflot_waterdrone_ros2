@@ -1,12 +1,12 @@
 import rclpy
 import time
-from rclpy.executors import ExternalShutdownException
+
 from rclpy.node import Node
 import RPi.GPIO as GPIO
 
 from std_srvs.srv import Trigger
 
-from ...config_wiring import WATER_SAMPLER_SERVO_PIN
+from ..config_wiring import WATER_SAMPLER_SERVO_PIN
 from ...const_names import CLOSE_SERVO_SERVICE_NAME, OPEN_AND_STOP_SERVO_SERVICE_NAME
 
 NODE_NAME = "water_sampler_servo"

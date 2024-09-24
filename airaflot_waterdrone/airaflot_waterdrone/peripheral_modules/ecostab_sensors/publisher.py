@@ -1,11 +1,14 @@
 import rclpy
 from rclpy.node import Node
 import typing as tp
+import pymodbus.client as ModbusClient
 
 from airaflot_msgs.msg import EcostabSensors
 
-from .sensors import Sensor, pHSensor, ConductivitySensor
+from .sensors import Sensor, pHSensor, ConductivitySensor, ORPSensor, OxxygenSensor, EmulateSensor
 from ...const_names import ECOSTAB_SENSORS_TOPIC_NAME
+from ..config_wiring import ECOSTAB_SENSORS_PORT
+from ..config import EMULATE_ECOSTAB_SENSORS
 
 NODE_NAME = "ecostab_sensors"
 
@@ -13,7 +16,13 @@ class EcostabSensorsNode(Node):
 
     def __init__(self):
         super().__init__(NODE_NAME)
-        self.sensors: tp.List[Sensor] = [pHSensor(), ConductivitySensor()]
+        if EMULATE_ECOSTAB_SENSORS:
+            self.sensors: tp.List[Sensor] = [EmulateSensor()]
+        else:
+            modbus_client = ModbusClient.ModbusSerialClient(
+                ECOSTAB_SENSORS_PORT, baudrate=9600, bytesize=8, stopbits=1
+            )
+            self.sensors: tp.List[Sensor] = [pHSensor(modbus_client), ConductivitySensor(modbus_client), ORPSensor(modbus_client), OxxygenSensor(modbus_client)]
         self.publisher_ = self.create_publisher(EcostabSensors, ECOSTAB_SENSORS_TOPIC_NAME, 10)
         timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)

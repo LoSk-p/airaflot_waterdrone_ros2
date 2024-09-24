@@ -9,7 +9,7 @@ from rclpy.executors import ExternalShutdownException
 from airaflot_msgs.msg import NMEADBT
 from std_srvs.srv import Trigger
 
-from ...config_wiring import ECHOSOUNDER_PORT
+from ..config_wiring import ECHOSOUNDER_PORT
 from ...const_names import ECHOSOUNDER_START_SERVICE_NAME, ECHOSOUNDER_STOP_SERVICE_NAME, ECHOSOUNDER_DATA_TOPIC
 
 NODE_NAME = "echo_sounder"

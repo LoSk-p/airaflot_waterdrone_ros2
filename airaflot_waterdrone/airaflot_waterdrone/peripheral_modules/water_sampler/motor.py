@@ -6,7 +6,7 @@ from RpiMotorLib import RpiMotorLib
 
 from airaflot_msgs.srv import WaterSamplerMotor
 
-from ...config_wiring import (
+from ..config_wiring import (
     WATER_SAMPLER_STEP_PIN,
     WATER_SAMPLER_DIRECTION_PIN,
     WATER_SAMPLER_MODE_PINS,
@@ -29,7 +29,7 @@ class WaterSamplerMotorNode(Node):
             motor_type=WATER_SUMPLER_MOTOR_TYPE,
         )
         self.service = self.create_service(
-            WaterSamplerMotor, DOWN_WATER_SAMPLER_MOTOR_SERVICE_NAME, self.down_motor
+            WaterSamplerMotor, Down, self.down_motor
         )
         self.service = self.create_service(
             WaterSamplerMotor, UP_WATER_SAMPLER_MOTOR_SERVICE_NAME, self.up_motor

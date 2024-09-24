@@ -23,3 +23,9 @@ SET_PREVIOUS_MODE_SERVICE_NAME = "/airaflot/mavros_helpers/set_previous_mode"
 
 ### GPS External ###
 GPS_EXTERNAL_DATA_TOPIC_NAME = "/airaflot/gps_external/data"
+
+### File Saver ###
+FILE_FINISHED_TOPIC_NAME = "/airaflot/file_saver/file_finished"
+
+### Scenarios Service ###
+DATA_TO_SEND_TOPIC_NAME = "/airaflot/data_to_send"

@@ -1,0 +1,4 @@
+float64 timestamp
+float64 longitude
+float64 latitude
+string sensors_data

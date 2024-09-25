@@ -2,7 +2,7 @@ from .sensor import Sensor
 
 from airaflot_msgs.msg import EcostabSensors
 
-ORP_REGISTER = 0x9006
+ORP_REGISTER = 0x9008
 
 class ORPSensor(Sensor):
     def fetch(self, data: EcostabSensors) -> EcostabSensors:

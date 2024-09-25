@@ -1,1 +1,1 @@
-EMULATE_ECOSTAB_SENSORS = True
+from ..config_scenarios import EMULATE_ECOSTAB_SENSORS

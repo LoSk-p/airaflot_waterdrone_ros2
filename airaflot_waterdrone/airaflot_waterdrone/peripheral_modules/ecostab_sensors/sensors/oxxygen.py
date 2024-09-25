@@ -2,7 +2,7 @@ from .sensor import Sensor
 
 from airaflot_msgs.msg import EcostabSensors
 
-OXXYGEN_REGISTER = 0x9006
+OXXYGEN_REGISTER = 0
 
 class OxxygenSensor(Sensor):
     def fetch(self, data: EcostabSensors) -> EcostabSensors:

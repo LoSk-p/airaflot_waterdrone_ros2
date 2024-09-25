@@ -55,10 +55,16 @@ class FileSaver(Node):
         return json_data
     
     def _check_current_file_and_create_new_if_need(self) -> None:
+        self._publish_info_about_finished_file()
         time_since_creation = datetime.now() - self._current_filename.get_date()
         file_data = self._get_data_from_file()
         if time_since_creation > NEW_FILE_TIMEOUT or len(file_data["measurements"]) > MAX_MEASUREMENTS_COUNT:
             self._current_filename = self._create_new_file()
+
+    def _publish_info_about_finished_file(self) -> None:
+        msg = String()
+        msg.data = self._current_filename.to_str()
+        self.publisher.publish(msg)
 
     def _get_data_from_file(self) -> tp.Dict:
         with open(self._current_filename.to_str(), "r") as f:
